@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #body{
+        padding-top: 50px;
+        width: 90%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 30px;
+    }
+   #body div{
+        padding: 10px;
+        background: gray;
+    }
+    p{
+        width:max-content ;
+        color: white;
+    }
+    a{
+        text-decoration: none;
+        font-size: 24px;
+    }
+    h1{
+        font-weight: 300;
+       display: flex;
+       justify-content: center;
+    }
+</style>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 0 30px ;">
+        <a href="/">Go Home</a>
+      <h1>Admin</h1>
+    </div>
+  <div id="body">
+
+  </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket = io('http://localhost:4000/');
+const body = document.querySelector('#body')
+
+socket.on('admin',(data)=>{
+        const div = document.createElement('div')
+        const newtext = document.createElement('p')
+        const nodetext = document.createTextNode("phone:" + data.name)
+        newtext.appendChild(nodetext)
+        div.appendChild(newtext)  
+
+        const newtext1 = document.createElement('p')
+        const nodetext1 = document.createTextNode("number:" + data.number)
+        newtext1.appendChild(nodetext1)
+        div.appendChild(newtext1)  
+
+        const newtext2 = document.createElement('p')
+        const nodetext2 = document.createTextNode("email:" + data.email)
+        newtext2.appendChild(nodetext2)
+        div.appendChild(newtext2)  
+
+        const newtext3 = document.createElement('p')
+        const nodetext3 = document.createTextNode("message: " + data.message)
+        newtext3.appendChild(nodetext3)
+        div.appendChild(newtext3)  
+        body.appendChild(div)
+})
+
+
+
+</script>
+</html>
